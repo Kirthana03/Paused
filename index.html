@@ -10,7 +10,7 @@
     <script src = "rotate-toggle.js"></script>
     <script src = "last-toggle.js"></script>
     <script src = "opacity-toggle.js"></script>
-    <!-- <script src = "image-toggle.js"></script> -->
+    <script src = "fly.js"></script>
     <script src = "oculus-thumbstick-controls.js"></script>
     <title>Paused</title>
 </head>
@@ -38,7 +38,10 @@
         </a-assets>
         <a-entity oculus-touch-controls="hand: right" oculus-thumbstick-controls></a-entity>
         <a-entity position = "0 0 50">
-            <a-camera id="cam" user-height = "2" look-controls wasd-controls="acceleration:100" position="0 0 0">
+            <a-camera id="cam" user-height = "2" 
+                      fly 
+                      wasd-controls="false"  
+                      position="0 0 0">
                 <a-entity>
                     <a-cursor
                       geometry="primitive:sphere ; radius:0.008"

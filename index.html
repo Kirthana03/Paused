@@ -10,7 +10,6 @@
     <script src = "rotate-toggle.js"></script>
     <script src = "last-toggle.js"></script>
     <script src = "opacity-toggle.js"></script>
-    <script src = "fly.js"></script>
     <script src = "oculus-thumbstick-controls.js"></script>
     <title>Paused</title>
 </head>
@@ -37,19 +36,19 @@
           <audio id="click-sound" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
         </a-assets>
         <a-entity oculus-touch-controls="hand: right" oculus-thumbstick-controls></a-entity>
-        <a-entity position = "0 0 50">
-            <a-camera id="cam" user-height = "2" 
-                      position="0 0 0"
-                      fly  >
-                <a-entity>
-                    <a-cursor
-                      geometry="primitive:sphere ; radius:0.008"
-                      color="#FFF281">
-                    </a-cursor>
-                </a-entity>
-            </a-camera>
-
+        <a-entity id="rig" position = "0 0 50"
+            movement-controls>
+            <a-entity camera
+            position="0 1.6 0"
+            look-controls>
+            <a-cursor
+            geometry="primitive:sphere ; radius:0.008"
+            color="#FFF281">
+          </a-cursor> 
+          </a-entity>
         </a-entity>
+
+
         <script>
         const scene = document.querySelector('a-scene')
         for (let i=0; i<10; i++){

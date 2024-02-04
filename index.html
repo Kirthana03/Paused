@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://rawgit.com/takahirox/aframe-outline/master/build/aframe-outline.min.js"></script>
+    <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script> 
+    <script src = "state-toggle.js"></script>
+    <script src = "rotate-toggle.js"></script>
+    <script src = "last-toggle.js"></script>
+    <script src = "opacity-toggle.js"></script>
+    <!-- <script src = "image-toggle.js"></script> -->
+    <script src = "oculus-thumbstick-controls.js"></script>
+    <title>Paused</title>
+</head>
+<body>
+    <a-scene xr-mode-ui="cardboardModeEnabled: true">
+        <a-assets>
+          <a-asset-item id="cubeO" src="Assets/Cube01.obj"></a-asset-item>
+          <a-asset-item id="cubeM" src="Assets/Cube01.mtl"></a-asset-item>
+          <img id="S1" class="toggle-image" src="Assets/01.png">
+          <img id="S2" class="toggle-image" src="Assets/02.png">
+          <img id="S3" class="toggle-image" src="Assets/03.png">
+          <img id="S4" class="toggle-image" src="Assets/04.png">
+          <img id="S5" class="toggle-image" src="Assets/05.png">
+          <img id="S6" class="toggle-image" src="Assets/06.png">
+          <img id="S7" class="toggle-image" src="Assets/07.png">
+          <img id="S8" class="toggle-image" src="Assets/08.png">
+          <img id="S9" class="toggle-image" src="Assets/09.png">
+          <img id="St01" src="Assets/Stg03-People.png">
+          <img id="St02" src="Assets/Stg03-Passion.png">
+          <img id="St03" src="Assets/Stg03-Contentment.png">
+          <img id="St04" src="Assets/Stg03-Regret.png">
+          <audio id="A1" src="Assets/AmbStg01.mp3" preload="auto"></audio>
+          <audio id="A2" src="Assets/AmbStg02.mp3" preload="auto"></audio>
+          <audio id="click-sound" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
+        </a-assets>
+        <a-entity oculus-touch-controls="hand: right" oculus-thumbstick-controls></a-entity>
+        <a-entity position = "0 0 50">
+            <a-camera id="cam" user-height = "2" look-controls wasd-controls="acceleration:100" position="0 0 0">
+                <a-entity>
+                    <a-cursor
+                      geometry="primitive:sphere ; radius:0.008"
+                      color="#FFF281">
+                    </a-cursor>
+                </a-entity>
+            </a-camera>
+
+        </a-entity>
+        <script>
+        const scene = document.querySelector('a-scene')
+        for (let i=0; i<10; i++){
+          for (let j=0; j<10; j++){
+            let cluster = document.createElement('a-obj-model')
+            const cluster_ID = `cluster_${i}_${j}`;
+            let cluster_width = 1;
+            let cluster_height = 1;
+            let cluster_depth = 1;
+            let cluster_posX = cluster_width + Math.random() * 15; 
+            let cluster_posY = cluster_height + Math.random() * 15; 
+
+            cluster.setAttribute('ID',cluster_ID);
+            cluster.setAttribute('class', 'cluster');
+            // console.log(cluster_ID);
+            cluster.setAttribute('src', '#cubeO');
+            cluster.setAttribute('mtl', '#cubeM');
+            cluster.setAttribute('shader','flat')
+            cluster.setAttribute('position',{x:i*(cluster_posX)-25,y:j*cluster_posY-25,z:12+( Math.random()*3)})
+            cluster.setAttribute('width',3)
+            cluster.setAttribute('height',3)
+            cluster.setAttribute('depth',3)
+            cluster.setAttribute('rotation','0 0 0')
+            cluster.setAttribute('rotate-toggle','')
+            // cluster.setAttribute('image-toggle','')
+            scene.appendChild(cluster)
+          }
+        }
+        </script>
+
+<!-- Stage 01 -->
+        <a-sky
+          color = "#000000"
+        ></a-sky>
+        <a-plane
+          position="0 2 40"
+          width = "30"
+          height = "30"
+          color="#000000"
+          opacity="1"
+          shader="flat"
+          sound = "src: #A1; autoplay:true; loop:true; positional:false"
+          state-toggle>
+          <a-circle
+            position = "0 -0.4 0.3"
+            radius = "0.09"
+            side = "double"
+            color = "#ffffff"
+            animation = "property: scale; to:1.1 1.1; dir:alternate; dur:1500; loop:true"
+            state-toggle> 
+            <a-text 
+            geometry = "primitive:plane; width:200; height:200"
+            material ="color:#00000; shader:flat; opacity:0"
+            position = "-2.2 0.4 0.6"
+            value = "Welcome to the pause"
+            width = "9"
+            shader = "msdf"
+            font= "https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/spacemono/SpaceMono-Regular.json"
+            state-toggle>
+            </a-text> 
+          </a-circle>
+        </a-plane>
+
+
+<!-- Stage 02 -->
+
+        <a-entity id = "Stg2Audio" sound="src: #A2"></a-entity>
+        <a-plane
+        position="0 2 35"
+        width = "1000"
+        height = "1000"
+        color="#000000"
+        opacity="1"
+        shader="flat"
+        sound = "src: #A2; autoplay:true; loop:true; positional:"
+        state-toggle
+>
+        <a-circle
+          position = "0 -0.4 0.3"
+          radius = "0.09"
+          side = "double"
+          color = "#ffffff"
+          animation = "property: scale; to:1.1 1.1; dir:alternate; dur:1500; loop:true"
+          state-toggle
+
+> 
+          <a-text 
+          geometry = "primitive:plane; width:200; height:200"
+          material ="color:#00000; shader:flat; opacity:0"
+          position = "-2.2 0.4 0"
+          value = "Do you ever not think?"
+          width = "9"
+          shader = "msdf"
+          font= "https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/spacemono/SpaceMono-Regular.json"
+          state-toggle
+
+>
+          </a-text> 
+        </a-circle>
+      </a-plane>
+
+<!-- Stage 03 -->
+
+      <a-circle
+      position = "0 0 15"
+      radius = "0.09"
+      side = "double"
+      color = "#ffffff"
+      animation = "property: scale; to:1.1 1.1; dir:alternate; dur:1500; loop:true"
+      last-toggle
+>     </a-circle>
+      <a-text 
+      geometry = "primitive:plane; width:200; height:200"
+      material ="color:#00000; shader:flat; opacity:0"
+      position = "-3.5 1 15"
+      value = "Well, I don't know how to, all my experiences gather and overwhelm"
+      width = "9"
+      shader = "msdf"
+      font= "https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/spacemono/SpaceMono-Regular.json"
+      last-toggle
+>
+      </a-text> 
+
+
+<!-- Stage 04 -->
+        <a-curvedimage id="C1" src="#S1"
+          theta-length = "40"
+          theta-start="160"
+          position="0 3 10"
+          radius = "1"
+          height = "0.4188"
+          scale = "6 6 1"
+          opacity = 1
+          opacity-toggle
+        >
+        </a-curvedimage>
+
+        <a-curvedimage id="C2" src="#S2"
+        theta-length = "40"
+        theta-start="120"
+        position="0 3 15"
+        radius = "1"
+        height = "0.4188"
+        scale = "6 6 1"
+        opacity = 1
+        opacity-toggle
+      >
+      </a-curvedimage>
+
+      <a-curvedimage id="C3" src="#S3"
+      theta-length = "40"
+      theta-start="200"
+      position="0 3 15"
+      radius = "1"
+      height = "0.4188"
+      scale = "6 6 1"
+      opacity = 1
+      opacity-toggle
+    >
+    </a-curvedimage>
+
+    <a-curvedimage id="C4" src="#S4"
+    theta-length = "40"
+    theta-start="160"
+    position="0 6 15"
+    radius = "1"
+    height = "0.4188"
+    scale = "6 6 1"
+    opacity = 1
+    opacity-toggle
+  >
+  </a-curvedimage>
+
+  <a-curvedimage id="C5" src="#S5"
+  theta-length = "40"
+  theta-start="120"
+  position="0 6 5"
+  radius = "1"
+  height = "0.4188"
+  scale = "6 6 1"
+  opacity = 1
+  opacity-toggle
+>
+</a-curvedimage>
+
+<a-curvedimage id="C6" src="#S6"
+theta-length = "40"
+theta-start="200"
+position="0 6 5"
+radius = "1"
+height = "0.4188"
+scale = "6 6 1"
+opacity =  1
+opacity-toggle
+>
+</a-curvedimage>
+
+<a-curvedimage id="C7" src="#S7"
+theta-length = "40"
+theta-start="160"
+position="0 0 15"
+radius = "1"
+height = "0.4188"
+scale = "6 6 1"
+opacity = 1
+opacity-toggle
+>
+</a-curvedimage>
+
+<a-curvedimage id="C8" src="#S8"
+theta-length = "40"
+theta-start="120"
+position="0 0 5"
+radius = "1"
+height = "0.4188"
+scale = "6 6 1"
+opacity = 1
+opacity-toggle
+>
+</a-curvedimage>
+
+<a-curvedimage id="C9" src="#S9"
+theta-length = "40"
+theta-start="200"
+position="0 0 5"
+radius = "1"
+height = "0.4188"
+scale = "6 6 1"
+opacity = 1
+opacity-toggle
+>
+</a-curvedimage>
+
+        <!-- <a-entity id="imageContainer">
+          <a-entity image-toggle></a-entity>
+        </a-entity>
+    </a-scene> -->
+
+    
+</body>
+</html>

@@ -1,7 +1,7 @@
 AFRAME.registerComponent('last-toggle',{
     init: function() {
         let el = this.el;
-        var st2 = document.querySelector("#cam");
+        var st2 = document.querySelector("#rig");
         pos = st2.getAttribute('position'); 
         posX = pos['x']; 
         posY = pos['y']; 
